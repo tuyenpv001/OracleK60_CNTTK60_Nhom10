@@ -1,4 +1,4 @@
-package com.news.config;
+xpackage com.news.config;
 
 import com.news.entities.Category;
 import com.news.entities.News;
