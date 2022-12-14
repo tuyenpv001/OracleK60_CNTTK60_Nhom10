@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@CrossOrigin(origins = "http://localhost:5173")
+//@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping(name = "/news")
 public class NewsController {
@@ -20,14 +20,15 @@ public class NewsController {
     private NewsRepository newsRepository;
     private NewsService newsService;
 
-    public NewsController(NewsService newsService) {
+    public NewsController(NewsService newsService, NewsRepository  newsRepository) {
         this.newsService = newsService;
+        this.newsRepository = newsRepository;
     }
 
-//    @GetMapping("/")
-//    public List<News> getAllNews(){
-//        return this.newsRepository.findAll();
-//    }
+    @GetMapping("/")
+    public List<News> getAllNews(){
+        return this.newsRepository.findAll();
+    }
 
 
     @PostMapping("/")
@@ -36,15 +37,16 @@ public class NewsController {
         this.newsService.postNews(newsRequest);
     }
 
-    @GetMapping(value = "/{id}")
-    public String getNews(@PathVariable Long id) {
-
-
-
-
-        return "Tinh";
-
+    @PutMapping(value = "/increase")
+    public void getNews(@RequestParam Long id) throws Exception{
+        this.newsService.increaseNews(id);
 
     }
+
+//    @GetMapping(name = "/count")
+//    public Long getCountView() {
+//        return this.newsRepository.countByViewPost();
+//    }
+
 
 }

@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -31,6 +32,22 @@ public class NewsService {
         news.setStatus(newsRequest.getStatus());
 
         this.newsRepository.save(news);
+    }
+
+
+    public void increaseNews(Long post_id) throws Exception {
+        Optional<News> news = this.newsRepository.findById(post_id);
+        if(!news.isPresent()){
+            throw new Exception("News not found");
+        }
+        System.out.println("runnnnnnnn");
+        news.get().setView_post(news.get().getView_post() + 1);
+        this.newsRepository.save(news.get());
+    }
+
+    public Long getNumbOfViews(){
+        Long numb = this.newsRepository.count();
+        return numb;
     }
 }
 

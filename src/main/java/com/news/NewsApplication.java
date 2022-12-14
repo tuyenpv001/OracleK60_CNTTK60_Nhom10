@@ -31,10 +31,11 @@ public class NewsApplication  implements CommandLineRunner {
 
 	@Override
 	public  void run(String... arg) throws Exception{
-		String sql = "SELECT * FROM categories";
-		List<Category> categories = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Category.class));
+		String sql = "SELECT sum(view_post) FROM categories";
+//		Long totalEffortSeconds = jdbcTemplate.query(sql,Long.class);
 
-		categories.forEach(System.out::println);
+
+
 	}
 
 }
